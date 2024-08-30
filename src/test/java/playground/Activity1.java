@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class Activity1 {
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeMethod
     public void setupTest(){
