@@ -9,11 +9,10 @@ public class Activity2 {
        if((firstName == null || firstName.isEmpty())
                || (lastName == null || lastName.isEmpty()))
            throw new RuntimeException("First Name or last name can't be null or empty");
-           lastName = lastName.toUpperCase();
-           firstName = firstName.substring(0, 1).toUpperCase()
+       lastName = lastName.toUpperCase();
+       firstName = firstName.substring(0, 1).toUpperCase()
                    + firstName.substring(1);
         return lastName+ ", " + firstName ;
-
     }
 
     @Test
