@@ -5,17 +5,20 @@ import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import tek.tdd.page.HomePage;
+import tek.tdd.page.SignInPage;
 import tek.tdd.utility.SeleniumUtility;
 
 public class UIBaseClass extends SeleniumUtility {
     private static final Logger LOGGER = LogManager.getLogger(UIBaseClass.class);
     public HomePage homePage;
+    public SignInPage signInPage;
 
     @BeforeMethod
     public void setupTest(){
         LOGGER.info("Setup tes and open Browser");
         setupBrowser();
         homePage = new HomePage();
+        signInPage = new SignInPage();
     }
 
     @AfterMethod

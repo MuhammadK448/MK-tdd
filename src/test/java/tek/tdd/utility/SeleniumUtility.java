@@ -40,4 +40,22 @@ public class SeleniumUtility extends BaseSetup {
         LOGGER.debug("is element enabled: {}", isEnabled);
         return isEnabled;
     }
+    public void sendText(WebElement element, String text) {
+        LOGGER.debug("Sending text {} to Element {}", text, element);
+        WebElement targetElement = getWait().until(ExpectedConditions.visibilityOf(element));
+        targetElement.clear();
+        targetElement.sendKeys(text);
+    }
+
+    public void clickOnElement(WebElement element) {
+        LOGGER.debug("Clicking on Element {}", element);
+        getWait().until(ExpectedConditions.elementToBeClickable(element))
+                .click();
+    }
+
+    public boolean isElementDisplayed(WebElement element) {
+        LOGGER.debug("Checking element for isDisplayed {}", element);
+        return getWait().until(ExpectedConditions.visibilityOf(element))
+                .isDisplayed();
+    }
 }
