@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="running only specified tests">
+    <test name="Regression Tests">
+        <classes>
+            <!-- Just Specify name of the test classes to run -->
+            <class name="tek.tdd.tests.CreateAccountTests"/>
+            <class name="tek.tdd.tests.SecurityTest"/>
+        </classes>
+    </test>
+    <!-- We can have multiple tests (suite) in single suite -->
+    <test name="Smoke Test">
+        <classes>
+            <class name="tek.tdd.tests.BasicSetupTest"/>
+        </classes>
+    </test>
+</suite>
+

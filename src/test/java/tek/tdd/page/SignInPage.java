@@ -22,6 +22,8 @@ public class SignInPage extends SeleniumUtility {
     @FindBy(className = "error")
     public WebElement errorMessage;
 
+    @FindBy(linkText = "Create New Account")
+    public WebElement createNewAccountLink;
 
     public void doSignIn(String email, String password) {
         sendText(emailInput, email);

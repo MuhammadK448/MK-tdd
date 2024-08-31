@@ -14,7 +14,7 @@ public class SecurityTest extends UIBaseClass {
     @Test
     public void validateSingIn() {
         clickOnElement(homePage.signInLink);
-        signInPage.doSignIn("mohammad2536@gmail.com", "Password@123");
+        signInPage.doSignIn("KhusraviM@hotmail.com", "Hot@Mai1");
         boolean isDisplayed = isElementDisplayed(homePage.accountLink);
         Assert.assertTrue(isDisplayed, "Looking for account Link to be displayed after login");
     }
