@@ -1,5 +1,6 @@
 package tek.tdd.tests;
 
+import com.aventstack.extentreports.service.ExtentTestManager;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,6 +15,9 @@ public class SecurityTest extends UIBaseClass {
     @Test
     public void validateSingIn() {
         clickOnElement(homePage.signInLink);
+
+        ExtentTestManager.getTest().info("Sign in with Credentials");
+
         signInPage.doSignIn("KhusraviM@hotmail.com", "Hot@Mai1");
         boolean isDisplayed = isElementDisplayed(homePage.accountLink);
         Assert.assertTrue(isDisplayed, "Looking for account Link to be displayed after login");
