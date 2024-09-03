@@ -14,22 +14,20 @@ public class SecondDataTable {
 
     @DataProvider
     public Object[][] testDataWithObject(){
-        Object[][] data = {
+        return new Object[][]{
             {"Ahmad", 5},
             {"Jamaludin", 9},
             {"May", 3}
         };
-        return data;
     }
 
     //Using POJo Class here to get the data
     @DataProvider(name = "InputFromPOJO")
     public PoJoPerson[] testWithCustomPOJO(){
-        PoJoPerson[] data = {
+        return new PoJoPerson[]{
                 new PoJoPerson("Abdul", 5),
                 new PoJoPerson("Samadi", 6)
         };
-        return data;
     }
 
     //Using POJO
