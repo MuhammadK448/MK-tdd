@@ -53,8 +53,8 @@ public abstract class  BaseSetup {
         switch (browserType.toLowerCase()){
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
-                if(isHeadless) chromeOptions.addArguments("--headless");
-                driver = new ChromeDriver();
+                if (isHeadless) chromeOptions.addArguments("--headless");
+                driver = new ChromeDriver(chromeOptions);
                 break;
             case "edge":
                 EdgeOptions edgeOptions = new EdgeOptions();
