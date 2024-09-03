@@ -47,4 +47,9 @@ public class UIBaseClass extends SeleniumUtility {
         LOGGER.info("Closes browser after each test");
         quitBrowser();
     }
+
+    public void validCredentialSignIn(){
+        clickOnElement(homePage.signInLink);
+        signInPage.doSignIn("KhusraviM@hotmail.com", "Hot@Mai1");
+    }
 }
