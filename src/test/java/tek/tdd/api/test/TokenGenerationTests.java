@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import tek.tdd.api.models.EndPoints;
 import tek.tdd.base.ApiTestsBase;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class TokenGenerationTests extends ApiTestsBase {
         requestSpecification.body(body);
 
         //Send Request to /api/token
-        Response response = requestSpecification.when().post("/api/token");
+        Response response = requestSpecification.when().post(EndPoints.TOKEN.getValue());
         response.then().statusCode(200);
 
         //To access data from response body e.g. Username
@@ -81,7 +82,7 @@ public class TokenGenerationTests extends ApiTestsBase {
         Map<String, String> data = getTokenRequestBody(username, password);
         requestSpecification.body(data);
 
-        Response response = requestSpecification.when().post("/api/token");
+        Response response = requestSpecification.when().post(EndPoints.TOKEN.getValue());
         response.then().statusCode(statusCode);
         LOGGER.info("Response body: {}", response.prettyPrint());
         String actualErrorMessage = response.body().jsonPath().getString("errorMessage");
