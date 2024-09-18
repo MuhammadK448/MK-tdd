@@ -26,9 +26,8 @@ public class TokenGenerationTests extends ApiTestsBase {
     @Test(dataProvider = "credentials")
     public void generateValidToken(String username, String password){
         RequestSpecification requestSpecification = getDefaultRequest();
-        Map<String, String> body = new HashMap<>();
-        body.put("username", username);
-        body.put("password", password);
+        Map<String, String> body = getTokenRequestBody(username, password);
+
         requestSpecification.body(body);
 
         //Send Request to /api/token
@@ -79,10 +78,7 @@ public class TokenGenerationTests extends ApiTestsBase {
     @Test(dataProvider = "inValidCredentials")
     public void generateTokenWithInvalidCredentials(String username, String password, int statusCode, String errorMessage){
         RequestSpecification requestSpecification = getDefaultRequest();
-        Map<String, String> data = new HashMap<>();
-        data.put("username", username);
-        data.put("password", password);
-
+        Map<String, String> data = getTokenRequestBody(username, password);
         requestSpecification.body(data);
 
         Response response = requestSpecification.when().post("/api/token");
