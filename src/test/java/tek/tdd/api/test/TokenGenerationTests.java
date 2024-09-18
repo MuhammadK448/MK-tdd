@@ -1,6 +1,5 @@
 package tek.tdd.api.test;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
@@ -9,9 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tek.tdd.api.models.EndPoints;
+import tek.tdd.api.models.TokenRequest;
 import tek.tdd.base.ApiTestsBase;
 
-import java.util.HashMap;
 import java.util.Map;
 
 // Three important steps for api call
@@ -87,6 +86,17 @@ public class TokenGenerationTests extends ApiTestsBase {
         LOGGER.info("Response body: {}", response.prettyPrint());
         String actualErrorMessage = response.body().jsonPath().getString("errorMessage");
         Assert.assertEquals(actualErrorMessage, errorMessage);
+    }
+
+    //Generate token by using object as input
+    @Test
+    public void generateTokenUsingObjectAsBody(){
+        RequestSpecification request = getDefaultRequest();
+        TokenRequest requestBody = new TokenRequest("supervisor", "tek_supervisor");
+        request.body(requestBody);
+        Response response = request.when().post(EndPoints.TOKEN.getValue());
+        response.then().statusCode(200);
+        response.prettyPrint();
     }
 
 
