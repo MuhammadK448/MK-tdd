@@ -1,5 +1,6 @@
 package tek.tdd.api.models;
 
+//Having pojo class is useful when we are dealing lots of objects
 public class TokenRequest {
     private String username;
     private String password;
