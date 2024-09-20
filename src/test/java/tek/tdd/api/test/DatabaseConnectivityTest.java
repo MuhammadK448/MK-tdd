@@ -1,6 +1,5 @@
 package tek.tdd.api.test;
 
-import com.mysql.cj.protocol.Resultset;
 import org.testng.annotations.Test;
 
 import java.sql.*;

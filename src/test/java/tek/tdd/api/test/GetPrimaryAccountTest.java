@@ -4,11 +4,10 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import tek.tdd.api.models.AccountType;
-import tek.tdd.api.models.EndPoints;
-import tek.tdd.api.models.TokenRequest;
-import tek.tdd.api.models.TokenResponse;
+import tek.tdd.api.models.*;
 import tek.tdd.base.ApiTestsBase;
+
+import java.sql.*;
 
 public class GetPrimaryAccountTest extends ApiTestsBase {
 
@@ -90,6 +89,45 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
         Assert.assertEquals(token.getAccountType(), AccountType.CSR);
         Assert.assertEquals(token.getFullName(), "Supervisor");
 
+    }
+    //Retrieve latest primary person from database. call API /get-primary-account
+    // Validate API response with database
+    @Test
+    public void getAccountWithDatabaseValidation() throws SQLException {
+        ResultSet resultSet = executeQuery();
+        resultSet.next();
+        int expectedId = resultSet.getInt("id");
+        String expectedEmail = resultSet.getString("email");
+
+        Response response = getDefaultRequest()
+                .queryParam("primaryPersonId", expectedId)
+                .when().get(EndPoints.GET_PRIMARY_ACCOUNT.getValue())
+                .then().statusCode(200)
+                .extract().response();
+        //get Report
+        ExtentTestManager.getTest().info(response.asPrettyString());
+        //Convert/add response to AccountResponse class
+        AccountResponse accountResponse = response.body().jsonPath().getObject("", AccountResponse.class);
+
+        Assert.assertEquals(accountResponse.getId(), expectedId);
+        Assert.assertEquals(accountResponse.getEmail(), expectedEmail);
+
+    }
+
+    private ResultSet executeQuery(){
+        String url = "jdbc:mysql://tek-database-server.mysql.database.azure.com:3306/tek_insurance_app";
+        String username = "tek_student_user";
+        String password = "FEB_2024";
+
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String query = "select id, email from tek_insurance_app.primary_person order by id desc limit 1;";
+            return statement.executeQuery(query);
+        }catch (SQLException sqe){
+            ExtentTestManager.getTest().fail(sqe.getMessage());
+            throw new RuntimeException();
+        }
     }
 }
 
