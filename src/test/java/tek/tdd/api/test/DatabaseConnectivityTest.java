@@ -21,12 +21,11 @@ public class DatabaseConnectivityTest {
      * tek_insurance_app = Database name
      * tek-database- serv.....com = host name
      */
+    String url = "jdbc:mysql://tek-database-server.mysql.database.azure.com:3306/tek_insurance_app";
+    String username = "tek_student_user";
+    String password = "FEB_2024";
     @Test
     public void databaseConnectionTest(){
-
-        String url = "jdbc:mysql://tek-database-server.mysql.database.azure.com:3306/tek_insurance_app";
-        String username = "tek_student_user";
-        String password = "FEB_2024";
         try{
             //Create Connection
             Connection connection = DriverManager.getConnection(url, username, password);
@@ -46,6 +45,32 @@ public class DatabaseConnectivityTest {
             ex.printStackTrace();
             System.out.println("=======");
             ex.getErrorCode();
+        }
+
+    }
+
+    //Acativity: Run Query that return last id from primary_person and print it
+    @Test
+    public void getLatestPrimaryPersonId() throws SQLException {
+        Connection connection = null;
+        try{
+            //Create Connection
+            connection = DriverManager.getConnection(url, username, password);
+            //Step 2:
+            Statement statement = connection.createStatement();
+
+            //Step 3:
+            String query = "SELECT id FROM tek_insurance_app.primary_person where id=(SELECT max(id) FROM tek_insurance_app.primary_person);";
+            ResultSet result = statement.executeQuery(query);
+            //Step 4: => loop through each row to get values
+            result.next();
+            System.out.println(result.getString("id"));
+
+        }catch (SQLException ex){
+            throw new RuntimeException(ex.getMessage());
+        }finally {
+            if(connection != null)
+                connection.close();
         }
 
     }
