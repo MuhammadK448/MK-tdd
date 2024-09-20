@@ -2,10 +2,12 @@ package tek.tdd.api.test;
 import com.aventstack.extentreports.service.ExtentTestManager;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.devtools.v85.database.Database;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tek.tdd.api.models.*;
 import tek.tdd.base.ApiTestsBase;
+import tek.tdd.utility.DatabaseUtility;
 
 import java.sql.*;
 
@@ -94,7 +96,10 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
     // Validate API response with database
     @Test
     public void getAccountWithDatabaseValidation() throws SQLException {
-        ResultSet resultSet = executeQuery();
+        String query = "select id, email from tek_insurance_app.primary_person order by id desc limit 1;";
+        DatabaseUtility dbUtility = new DatabaseUtility();
+
+        ResultSet resultSet = dbUtility.executeQuery(query);
         resultSet.next();
         int expectedId = resultSet.getInt("id");
         String expectedEmail = resultSet.getString("email");
@@ -114,21 +119,6 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
 
     }
 
-    private ResultSet executeQuery(){
-        String url = "jdbc:mysql://tek-database-server.mysql.database.azure.com:3306/tek_insurance_app";
-        String username = "tek_student_user";
-        String password = "FEB_2024";
-
-        try {
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
-            String query = "select id, email from tek_insurance_app.primary_person order by id desc limit 1;";
-            return statement.executeQuery(query);
-        }catch (SQLException sqe){
-            ExtentTestManager.getTest().fail(sqe.getMessage());
-            throw new RuntimeException();
-        }
-    }
 }
 
 

@@ -92,4 +92,8 @@ public abstract class  BaseSetup {
             throw new RuntimeException("Driver is null");
         return driver;
     }
+
+    public String getProperty(String key){
+        return properties.getProperty(key);
+    }
 }
