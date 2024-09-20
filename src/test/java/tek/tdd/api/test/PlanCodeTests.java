@@ -43,7 +43,9 @@ public class PlanCodeTests extends ApiTestsBase {
 
         List<PlanCodeResponse> planCodeResponseList = response.body().jsonPath().getList("", PlanCodeResponse.class);
         Assert.assertNotNull(planCodeResponseList);
-        Assert.assertTrue(planCodeResponseList.size() == 4);
-
+        Assert.assertEquals(planCodeResponseList.size(), 4);
+        for(PlanCodeResponse planCode : planCodeResponseList){
+            Assert.assertFalse(planCode.isPlanExpired());
+        }
     }
 }
