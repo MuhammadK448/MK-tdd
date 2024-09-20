@@ -22,14 +22,14 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
        String actualEmail = response.jsonPath().getString("email");
         Assert.assertEquals(actualEmail, "jawid776@gmail.com");
     }
-    //Activity: Sending request to get-primary-account with Id does not exist,
+    //Activity: Sending request to get-primary-account with id does not exist,
     //Validate Error Message
 
     @Test
-    public void getPrimaryAccountWithWronId(){
-       RequestSpecification requestSpeci = getDefaultRequest();
-       requestSpeci.queryParam("primaryPersonId", 100001);
-       Response response = requestSpeci.get(EndPoints.GET_PRIMARY_ACCOUNT.getValue());
+    public void getPrimaryAccountWithWrongId(){
+       RequestSpecification requestSpecification = getDefaultRequest();
+        requestSpecification.queryParam("primaryPersonId", 100001);
+       Response response = requestSpecification.get(EndPoints.GET_PRIMARY_ACCOUNT.getValue());
         ExtentTestManager.getTest().info(response.getHeaders().toString());
        response.then().statusCode(404);
         response.prettyPrint();
@@ -88,6 +88,7 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
         Assert.assertEquals(token.getUsername(), "supervisor");
         Assert.assertNotNull(token.getToken());
         Assert.assertEquals(token.getAccountType(), AccountType.CSR);
+        Assert.assertEquals(token.getFullName(), "Supervisor");
 
     }
 }
