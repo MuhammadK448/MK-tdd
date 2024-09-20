@@ -75,6 +75,16 @@
             <version>5.5.0</version>
             <scope>test</scope>
         </dependency>
+<!--                Project Lombok Dependency-->
+<!--        In Intellij we need to install Plugin for Lombok-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
