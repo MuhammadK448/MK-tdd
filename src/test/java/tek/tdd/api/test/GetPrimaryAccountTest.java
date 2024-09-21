@@ -66,7 +66,6 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
                 .extract()// used to get response when chaining
                 .response()
                 .jsonPath().getString("errorMessage"); //the return will be the lastStep Before semiColon
-        //String errorMessage = response.jsonPath().getString("errorMessage");
         Assert.assertEquals(errorMessage, "Account with id 100001 not exist");
     }
     @Test
