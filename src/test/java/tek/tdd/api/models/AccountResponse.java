@@ -10,6 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@ToString
 public class AccountResponse {
     private int id;
     private String email;
