@@ -1,14 +1,12 @@
 package tek.tdd.api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 //Having pojo class is useful when we are dealing lots of objects
 public class TokenRequest {
     private String username;
