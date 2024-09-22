@@ -1,5 +1,7 @@
 package tek.tdd.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tek.tdd.base.BaseSetup;
 
 import java.sql.*;
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseUtility extends BaseSetup {
+
+    Logger LOGGER = LogManager.getLogger(DatabaseUtility.class);
 
     public ResultSet executeQuery(String query){
         try{
@@ -27,6 +31,7 @@ public class DatabaseUtility extends BaseSetup {
 
     //First Step for UserProfile APi Validation
     public List<Map<String, Object>> getResultFromDBQuery(String query) throws SQLException {
+        LOGGER.debug("Executing Query: {} ", query);
         String url = getProperty("db.url");
         String username = getProperty("db.username");
         String password = getProperty("db.password");
@@ -45,6 +50,7 @@ public class DatabaseUtility extends BaseSetup {
                 }
                 data.add(row);
             }
+            LOGGER.debug("Query Result: {} ", data);
             return data;
         }catch (SQLException se){
             throw new RuntimeException(se);
