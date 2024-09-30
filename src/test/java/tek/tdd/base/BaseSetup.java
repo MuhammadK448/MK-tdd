@@ -10,7 +10,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +30,7 @@ public abstract class  BaseSetup {
 
     public BaseSetup(){
         //Reading config files and loading to properties
-        String configFilePath = System.getProperty("user.dir")
-                + "/src/test/resources/configs/dev-config.properties";
+        String configFilePath = getEnvConfig();
         try{
             LOGGER.debug("Reading config file from path {}", configFilePath);
             InputStream inputStream = new FileInputStream(configFilePath);
@@ -45,6 +43,15 @@ public abstract class  BaseSetup {
             LOGGER.error("Config file error with message {}", ioException.getMessage());
             throw new RuntimeException("Config file error with message " + ioException.getMessage());
         }
+    }
+
+    private String getEnvConfig(){
+        String configFilePath = System.getProperty("user.dir")
+                + "/src/test/resources/configs/dev-config.properties";
+
+        String env = System.getProperty("env");
+        if(env == null) return configFilePath.replace("{env}", "dev");
+        return configFilePath.replace("{env}", env);
     }
 
     public void setupBrowser(){
