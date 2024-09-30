@@ -101,7 +101,8 @@
                 <configuration>
                     <suiteXmlFiles>
                         <!--just change the [testng(xml file name)] and will run the respective tests-->
-                        <suiteXmlFile>src/test/resources/runners/testng.xml</suiteXmlFile>
+                        <!-- now we add a parameter and get the value from goal after clean test  -->
+                        <suiteXmlFile>src/test/resources/runners/${type}.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
